@@ -1,3 +1,5 @@
+import { render, screen } from '@testing-library/react'
+import App from '../../App'
 
 const user = {
   id: 1,
@@ -10,6 +12,32 @@ const user = {
   color: 'crimson',
 }
 
-test('Should render the user profile', () => {
+//  motto
+//  list of user likes
 
+test('Should render the user profile', async () => {
+  render(<App />)
+
+  const name = await screen.findByText(/vonta/i)
+  const heading = await screen.findByAltText(/header/i)
+  const heading2 = await screen.findByAltText(/avatar/i)
+  const name2 = await screen.findByText(/interests/i)
+  const color = await screen.findByText(/color/i)
+  const motto = await screen.findByLabelText(/motto/i)
+
+  // const interest = await screen.findByText(/react/i)
+  // this passed, but i realized it was looking for just the word 'react' and i didnt like that
+
+  const int = await screen.findAllByRole('listitem')
+  expect(int).toHaveLength(6)
+
+  expect(name).toBeInTheDocument()
+  expect(heading).toBeInTheDocument()
+  expect(heading2).toBeInTheDocument()
+  expect(name2).toBeInTheDocument()
+  expect(color).toBeInTheDocument()
+  expect(motto).toBeInTheDocument()
+
+  // expect(interest).toBeInTheDocument()
+  // this was the call for the commented out test above
 })
